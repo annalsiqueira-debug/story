@@ -1,0 +1,13 @@
+# Sequência Energia Infinita
+
+## Como testar
+Abra `index.html` no navegador.
+
+## Como publicar no GitHub Pages
+1. Crie um repositório no GitHub.
+2. Envie `index.html` e todos os arquivos PNG para a raiz do repositório.
+3. Entre em Settings > Pages.
+4. Em Build and deployment, escolha Deploy from a branch.
+5. Selecione a branch `main` e a pasta `/(root)`, depois clique em Save.
+
+O site usa as nove imagens recebidas, na ordem narrativa definida no JavaScript.

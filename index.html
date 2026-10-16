@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Energia Infinita</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; padding: 24px;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 16px;
+      background: #f4f0e8; color: #222;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    h1 { margin: 0; text-align: center; }
+    #story-image {
+      display: block; width: min(100%, 520px); height: auto;
+      max-height: 70vh; object-fit: contain; cursor: pointer;
+      border: 2px solid #222; border-radius: 8px;
+      background: white;
+    }
+    #hint { margin: 0; text-align: center; }
+    .controls { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+    button {
+      border: 0; border-radius: 8px; padding: 12px 18px;
+      font-size: 1rem; cursor: pointer; background: #222; color: white;
+    }
+    button:disabled { opacity: .4; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+  <h1>Energia Infinita</h1>
+  <img id="story-image" src="energia6.png" alt="Quadrinho 1 de 9" title="Clique para avançar">
+  <p id="hint">Clique na imagem ou em “Próxima” para começar.</p>
+  <div class="controls">
+    <button id="previous" type="button">Anterior</button>
+    <button id="next" type="button">Próxima</button>
+    <button id="restart" type="button">Recomeçar</button>
+  </div>
+  <script>
+    // Ordem narrativa das nove imagens recebidas.
+    const imagens = [
+      "energia6.png",
+      "energia7.png",
+      "energia8.png",
+      "energia9.png",
+      "energia5.png",
+      "energia4.png",
+      "energia3.png",
+      "energia2.png",
+      "energia1.png"
+    ];
+
+    let estado = 0;
+    const imagem = document.getElementById("story-image");
+    const dica = document.getElementById("hint");
+    const anterior = document.getElementById("previous");
+    const proxima = document.getElementById("next");
+
+    function atualizar() {
+      imagem.src = imagens[estado];
+      imagem.alt = `Quadrinho ${estado + 1} de ${imagens.length}`;
+      anterior.disabled = estado === 0;
+      proxima.textContent = estado === imagens.length - 1 ? "Começar de novo" : "Próxima";
+      dica.textContent = estado === imagens.length - 1
+        ? `Fim da sequência (${estado + 1}/${imagens.length}). Você pode recomeçar.`
+        : `Clique na imagem para avançar (${estado + 1}/${imagens.length}).`;
+    }
+
+    function avancar() {
+      estado = estado === imagens.length - 1 ? 0 : estado + 1;
+      atualizar();
+    }
+
+    imagem.addEventListener("click", avancar);
+    proxima.addEventListener("click", avancar);
+    anterior.addEventListener("click", () => {
+      if (estado > 0) estado--;
+      atualizar();
+    });
+    document.getElementById("restart").addEventListener("click", () => {
+      estado = 0;
+      atualizar();
+    });
+
+    atualizar();
+  </script>
+</body>
+</html>
